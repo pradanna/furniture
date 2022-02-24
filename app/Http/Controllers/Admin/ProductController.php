@@ -101,10 +101,17 @@ class ProductController extends Controller
             'quantity2' => 'required'
         ]);
 
-        //upload image
-        $image = $request->file('image');
-        // $image->storeAs('public/product', $image->hashName());
-        $image->storeAs('/home/u7082880/public_html/awang/img/produk', $image->hashName());
+        // //upload image
+        // $image = $request->file('image');
+        // // $image->storeAs('public/product', $image->hashName());
+        // $image->storeAs('/home/u7082880/public_html/awang/img/produk', $image->hashName());
+
+        $fileName = '';
+        if($request->image->getClientOriginalName()){
+            $file = str_replace(' ', '', $request->image->getClientOriginalName());
+            $fileName = date('mYdHs').rand(1,100).'_'.$file;
+            $request->image->move('/home/u7082880/public_html/awang/img/produk', $fileName);
+        }
 
 
         $product = Product::create([
@@ -122,7 +129,7 @@ class ProductController extends Controller
             'hgros2' => $request->hgros2,
             'quantity1' => $request->quantity1,
             'quantity2' => $request->quantity2,
-            'image'             => $image->hashName(),
+            'image'             => $fileName,
             // Tambahan
             'is_promo' => $request->is_promo,
             'discount' => $request->discount,
