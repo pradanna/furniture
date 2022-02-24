@@ -104,7 +104,7 @@ class ProductController extends Controller
         //upload image
         $image = $request->file('image');
         // $image->storeAs('public/product', $image->hashName());
-        $image->move('/home/u7082880/public_html/awang/img/produk', $image->hashName());
+        $image->move('/home/u7082880/public_html/awang/img/produk', $image->hashName() + "."+ $image->extension());
 
         $product = Product::create([
             'kodebrg' => $request->kodebrg,
