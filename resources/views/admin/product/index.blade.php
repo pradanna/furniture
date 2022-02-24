@@ -58,6 +58,10 @@
                             @forelse($products as $product)
                                 <tr class="border bg-white">
 
+                                    <td>
+                                        {{$product}}
+                                        
+                                    </td>
                                     {{-- <td class="px-5 py-2">
                                         {{ $product->kodebrg }}
                                     </td> --}}
