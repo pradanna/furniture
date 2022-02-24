@@ -104,14 +104,9 @@ class ProductController extends Controller
         //upload image
         $image = $request->file('image');
         // $image->storeAs('public/product', $image->hashName());
-        // $image->move('/home/u7082880/public_html/awang/img/produk', $image->hashName() + "."+ $image->extension());
+        $image->move('/home/u7082880/public_html/awang/img/produk', $image->hashName() .".". $image->extension());
 
-        $fileName = '';
-        if($request->image->getClientOriginalName()){
-            $file = str_replace(' ', '', $request->image->getClientOriginalName());
-            $fileName = date('mYdHs').rand(1,100).'_'.$file;
-            $request->image->move('/home/u7082880/public_html/wisnukripik/dist/produk', $fileName);
-        }
+       
 
         $product = Product::create([
             'kodebrg' => $request->kodebrg,
