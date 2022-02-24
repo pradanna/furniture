@@ -66,7 +66,7 @@
                                     </td>
 
                                     <td class="px-5 py-2">
-                                        <img class=" object-cover" width="65" height="65" src="{{ $product->image }}">
+                                        <img class=" object-cover" width="65" height="65" src="{{ 'https://awang.udbti17a3.com/awang/img/produk/'.$product->image }}">
                                     </td>
 
                                     <td class="px-16 py-2">
