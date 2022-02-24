@@ -20,6 +20,6 @@ class Voucher extends Model
 
     public function getImageAttribute($image)
     {
-        return asset('storage/voucher/' . $image);
+        return asset('img/voucher/' . $image);
     }
 }

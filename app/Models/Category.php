@@ -19,6 +19,6 @@ class Category extends Model
 
     public function getImageAttribute($image)
     {
-        return asset('storage/category/' . $image);
+        return asset('img/category/' . $image);
     }
 }

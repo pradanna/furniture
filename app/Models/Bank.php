@@ -18,6 +18,6 @@ class Bank extends Model
 
     public function getImageAttribute($image)
     {
-        return asset('storage/bank/' . $image);
+        return asset('img/bank/' . $image);
     }
 }

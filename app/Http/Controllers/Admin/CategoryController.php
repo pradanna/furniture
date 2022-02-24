@@ -70,8 +70,15 @@ class CategoryController extends Controller
             Storage::disk('local')->delete('public/category/' . basename($category->image));
 
             //upload image baru
-            $image = $request->file('image');
-            $image->storeAs('public/category', $image->hashName());
+            // $image = $request->file('image');
+            // $image->storeAs('public/category', $image->hashName());
+
+            $fileName = '';
+            if($request->image->getClientOriginalName()){
+                $file = str_replace(' ', '', $request->image->getClientOriginalName());
+                $fileName = date('mYdHs').rand(1,100).'_'.$file;
+                $request->image->move('/home/u7082880/public_html/awang/img/category', $fileName);
+            }
 
             //update dengan image baru
             $category = category::findOrFail($category->id);
@@ -79,7 +86,7 @@ class CategoryController extends Controller
                 'kodeklmpk' => $request->kodeklmpk,
                 'kodedept' => $request->kodedept,
                 'namaklmpk' => $request->namaklmpk,
-                'image'             => $image->hashName()
+                'image'  => $fileName
             ]);
         }
 

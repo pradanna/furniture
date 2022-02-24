@@ -16,6 +16,6 @@ class Slide extends Model
 
     public function getImageAttribute($image)
     {
-        return asset('storage/slide/' . $image);
+        return asset('img/slide/' . $image);
     }
 }

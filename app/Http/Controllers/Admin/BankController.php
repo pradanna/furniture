@@ -56,14 +56,23 @@ class BankController extends Controller
             'card_name' => 'required'
         ]);
 
-        //upload image
-        $image = $request->file('image');
-        $image->storeAs('public/bank', $image->hashName());
+        // //upload image
+        // $image = $request->file('image');
+        // $image->storeAs('public/bank', $image->hashName());
+
+        
+        $fileName = '';
+        if($request->image->getClientOriginalName()){
+            $file = str_replace(' ', '', $request->image->getClientOriginalName());
+            $fileName = date('mYdHs').rand(1,100).'_'.$file;
+            $request->image->move('/home/u7082880/public_html/awang/img/bank', $fileName);
+        }
+
         $bank = Bank::create([
             'name'           => $request->name,
             'nomor_rekening'           => $request->nomor_rekening,
             'card_name'           => $request->card_name,
-            'image'          => $image->hashName()
+            'image'          => $fileName
         ]);
 
         // dd($slide);

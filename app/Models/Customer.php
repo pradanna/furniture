@@ -50,7 +50,7 @@ class Customer extends Model
     public function getAvatarAttribute($avatar)
     {
         if ($avatar != null) :
-            return asset('storage/users/' . $avatar);
+            return asset('img/users/' . $avatar);
         else :
             return 'https://ui-avatars.com/api/?name=' . str_replace(' ', '+', $this->name) . '&background=4e73df&color=ffffff&size=100';
         endif;

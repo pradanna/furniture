@@ -52,7 +52,7 @@ class ServiceController extends Controller
 
         $service = Service::create([
             'name'           => $request->name,
-            'nomor_wa'          => $request->nomor_wa
+            'nomor_wa'       => $request->nomor_wa
         ]);
 
         // dd($slide);

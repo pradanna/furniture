@@ -49,9 +49,16 @@ class VoucherController extends Controller
 
         ]);
 
-        //upload image
-        $image = $request->file('image');
-        $image->storeAs('public/voucher', $image->hashName());
+        // //upload image
+        // $image = $request->file('image');
+        // $image->storeAs('public/voucher', $image->hashName());
+
+        $fileName = '';
+        if($request->image->getClientOriginalName()){
+            $file = str_replace(' ', '', $request->image->getClientOriginalName());
+            $fileName = date('mYdHs').rand(1,100).'_'.$file;
+            $request->image->move('/home/u7082880/public_html/awang/img/produk', $fileName);
+        }
 
         $voucher = Voucher::create([
 
@@ -60,7 +67,7 @@ class VoucherController extends Controller
             'min_order'         => $request->min_order,
             'contact_centre'    => "62895346374614",
             'expired'           => $request->expired,
-            'image'             => $image->hashName()
+            'image'             => $fileName
 
         ]);
 

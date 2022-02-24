@@ -51,14 +51,21 @@ class SlideController extends Controller
             'name'              => 'required'
         ]);
 
-        //upload image
-        $image = $request->file('image');
-        $image->storeAs('public/slide', $image->hashName());
-        // $newCode = 'BMW-' .  rand(100, 999);
+        // //upload image
+        // $image = $request->file('image');
+        // $image->storeAs('public/slide', $image->hashName());
+        // // $newCode = 'BMW-' .  rand(100, 999);
+
+        $fileName = '';
+            if($request->image->getClientOriginalName()){
+                $file = str_replace(' ', '', $request->image->getClientOriginalName());
+                $fileName = date('mYdHs').rand(1,100).'_'.$file;
+                $request->image->move('/home/u7082880/public_html/awang/img/slide', $fileName);
+            }
 
         $slide = Slide::create([
             'name'           => $request->name,
-            'image'          => $image->hashName()
+            'image'          => $fileName
         ]);
 
         // dd($slide);
