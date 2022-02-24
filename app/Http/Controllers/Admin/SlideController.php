@@ -112,7 +112,7 @@ class SlideController extends Controller
             if($request->image->getClientOriginalName()){
                 $file = str_replace(' ', '', $request->image->getClientOriginalName());
                 $fileName = date('mYdHs').rand(1,100).'_'.$file;
-                $request->image->move('/home/u7082880/public_html/awang/img/produk', $fileName);
+                $request->image->move('/home/u7082880/public_html/awang/img/slide', $fileName);
             }
 
             //update dengan image baru
