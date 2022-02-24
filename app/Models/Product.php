@@ -41,7 +41,7 @@ class Product extends Model
 
     public function getImageAttribute($image)
     {
-        return asset('awang/img/produk/' . $image);
+        return asset('img/produk/' . $image);
     }
 
     // public function favorite()
