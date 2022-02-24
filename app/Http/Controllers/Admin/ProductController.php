@@ -26,6 +26,7 @@ class ProductController extends Controller
         $products = Product::latest()->when(request()->q, function ($products) {
             $products = $products->where('name', 'like', '%' . request()->q . '%');
         })->paginate(20);
+        
         return view('admin.product.index', compact('products'));
     }
 
