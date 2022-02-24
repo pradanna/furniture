@@ -138,15 +138,22 @@ class VoucherController extends Controller
             Storage::disk('local')->delete('public/voucher/' . basename($voucher->image));
 
             //upload image
-            $image = $request->file('image');
-            $image->storeAs('public/voucher', $image->hashName());
+            // $image = $request->file('image');
+            // $image->storeAs('public/voucher', $image->hashName());
+
+            $fileName = '';
+            if($request->image->getClientOriginalName()){
+                $file = str_replace(' ', '', $request->image->getClientOriginalName());
+                $fileName = date('mYdHs').rand(1,100).'_'.$file;
+                $request->image->move('/home/u7082880/public_html/awang/img/produk', $fileName);
+            }
 
             $voucher = Voucher::findOrFail($voucher->id);
             $voucher->update([
                 'type'       => $request->type,
                 'descriptions'    => $request->descriptions,
                 'min_order'         => $request->min_order,
-                'image' => $image->hashName(),
+                'image' => $fileName,
                 'contact_centre'         => "62895346374614",
                 'expired'          => $request->expired
             ]);

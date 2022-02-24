@@ -26,7 +26,7 @@ class ProductController extends Controller
         $products = Product::latest()->when(request()->q, function ($products) {
             $products = $products->where('name', 'like', '%' . request()->q . '%');
         })->paginate(20);
-        
+
         return view('admin.product.index', compact('products'));
     }
 
@@ -229,8 +229,16 @@ class ProductController extends Controller
             Storage::disk('local')->delete('public/product/' . basename($product->image));
 
             //upload image baru
-            $image = $request->file('image');
-            $image->storeAs('public/product', $image->hashName());
+            // $image = $request->file('image');
+            // $image->storeAs('public/product', $image->hashName());
+
+
+            $fileName = '';
+            if($request->image->getClientOriginalName()){
+                $file = str_replace(' ', '', $request->image->getClientOriginalName());
+                $fileName = date('mYdHs').rand(1,100).'_'.$file;
+                $request->image->move('/home/u7082880/public_html/awang/img/produk', $fileName);
+            }
 
             //update dengan image baru
             $product = Product::findOrFail($product->id);
@@ -251,7 +259,7 @@ class ProductController extends Controller
                 'hgros2' => $request->hgros2,
                 'quantity1' => $request->quantity1,
                 'quantity2' => $request->quantity2,
-                'image'             => $image->hashName(),
+                'image'             => $fileName,
                 // Tambahan
                 'is_promo' => $request->is_promo,
                 'discount' => $request->discount,

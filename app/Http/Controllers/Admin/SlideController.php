@@ -104,14 +104,22 @@ class SlideController extends Controller
             Storage::disk('local')->delete('public/slide/' . basename($slide->image));
 
             //upload image baru
-            $image = $request->file('image');
-            $image->storeAs('public/slide', $image->hashName());
+            // $image = $request->file('image');
+            // $image->storeAs('public/slide', $image->hashName());
+
+            
+            $fileName = '';
+            if($request->image->getClientOriginalName()){
+                $file = str_replace(' ', '', $request->image->getClientOriginalName());
+                $fileName = date('mYdHs').rand(1,100).'_'.$file;
+                $request->image->move('/home/u7082880/public_html/awang/img/produk', $fileName);
+            }
 
             //update dengan image baru
             $slide = Slide::findOrFail($slide->id);
             $slide->update([
                 'name'              => $request->name,
-                'image'             => $image->hashName()
+                'image'             => $fileName
             ]);
         }
 
